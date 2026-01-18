@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAI One — Research Preview</title>
+  <meta name="description"
+    content="TAI One is a private language model under active research at TLabs. Documentation of design principles and early architecture work.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,450;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* 
+      TAI One Design System 
+      Pure CSS implementation
+    */
+
+    :root {
+      /* Colors */
+      --c-bg: #0F1112;
+      --c-bg-alt: #111314;
+      --c-surface: #1A1C1E;
+      --c-border: #2A2D30;
+      --c-border-hover: #3A3D40;
+
+      --c-amber: #F6A623;
+      --c-amber-muted: rgba(246, 166, 35, 0.15);
+      --c-amber-subtle: rgba(246, 166, 35, 0.08);
+
+      --c-text-primary: #FAFAFA;
+      --c-text-secondary: #A1A1A6;
+      --c-text-tertiary: #6B6B70;
+      --c-text-quaternary: #4A4A4F;
+
+      --c-code-block: #0A0B0C;
+
+      /* Typography */
+      --font-sans: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', 'DM Mono', 'SF Mono', Consolas, monospace;
+
+      /* Spacing & Sizes */
+      --max-w-section: 900px;
+      --max-w-content: 640px;
+      --max-w-prose: 540px;
+    }
+
+    /* Reset & Base */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--c-bg);
+      color: var(--c-text-primary);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.15s ease;
+    }
+
+    button {
+      background: none;
+      border: none;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* Typography Utilities */
+    .font-mono {
+      font-family: var(--font-mono);
+    }
+
+    .font-medium {
+      font-weight: 500;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .text-left {
+      text-align: left;
+    }
+
+    .italic {
+      font-style: italic;
+    }
+
+    .uppercase {
+      text-transform: uppercase;
+    }
+
+    .tracking-widest {
+      letter-spacing: 0.08em;
+    }
+
+    .text-primary {
+      color: var(--c-text-primary);
+    }
+
+    .text-secondary {
+      color: var(--c-text-secondary);
+    }
+
+    .text-tertiary {
+      color: var(--c-text-tertiary);
+    }
+
+    .text-quaternary {
+      color: var(--c-text-quaternary);
+    }
+
+    .text-amber {
+      color: var(--c-amber);
+    }
+
+    /* Text Sizes */
+    .type-hero {
+      font-size: 72px;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      font-weight: 500;
+    }
+
+    .type-hero-mobile {
+      font-size: 48px;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      font-weight: 500;
+    }
+
+    .type-section {
+      font-size: 40px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+    }
+
+    .type-section-mobile {
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+    }
+
+    .type-subhead {
+      font-size: 24px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      font-weight: 500;
+    }
+
+    .type-body {
+      font-size: 17px;
+      line-height: 1.6;
+      letter-spacing: 0;
+    }
+
+    .type-small {
+      font-size: 15px;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    .type-caption {
+      font-size: 14px;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+    }
+
+    .type-code {
+      font-size: 14px;
+      line-height: 1.65;
+      letter-spacing: 0;
+    }
+
+    .type-label {
+      font-size: 11px;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+    }
+
+    .type-footer {
+      font-size: 13px;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    .type-copyright {
+      font-size: 12px;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    /* Layout Utilities */
+    .container {
+      width: 100%;
+      margin: 0 auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .max-w-section {
+      max-width: var(--max-w-section);
+    }
+
+    .max-w-content {
+      max-width: var(--max-w-content);
+    }
+
+    .max-w-prose {
+      max-width: var(--max-w-prose);
+    }
+
+    .mx-auto {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-col {
+      flex-direction: column;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .justify-center {
+      justify-content: center;
+    }
+
+    .justify-between {
+      justify-content: space-between;
+    }
+
+    .flex-wrap {
+      flex-wrap: wrap;
+    }
+
+    .gap-2 {
+      gap: 0.5rem;
+    }
+
+    .gap-3 {
+      gap: 0.75rem;
+    }
+
+    .gap-4 {
+      gap: 1rem;
+    }
+
+    .gap-6 {
+      gap: 1.5rem;
+    }
+
+    .gap-8 {
+      gap: 2rem;
+    }
+
+    .mb-2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .mb-4 {
+      margin-bottom: 1rem;
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+
+    .mb-7 {
+      margin-bottom: 1.75rem;
+    }
+
+    .mb-8 {
+      margin-bottom: 2rem;
+    }
+
+    .mb-10 {
+      margin-bottom: 2.5rem;
+    }
+
+    .mb-12 {
+      margin-bottom: 3rem;
+    }
+
+    .mt-4 {
+      margin-top: 1rem;
+    }
+
+    .mt-6 {
+      margin-top: 1.5rem;
+    }
+
+    .mt-7 {
+      margin-top: 1.75rem;
+    }
+
+    .mt-10 {
+      margin-top: 2.5rem;
+    }
+
+    .mt-12 {
+      margin-top: 3rem;
+    }
+
+    .py-12 {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .py-24 {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+
+    .py-30 {
+      padding-top: 7.5rem;
+      padding-bottom: 7.5rem;
+    }
+
+    .py-34 {
+      padding-top: 8.5rem;
+      padding-bottom: 8.5rem;
+    }
+
+    .px-4 {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .px-6 {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .p-6 {
+      padding: 1.5rem;
+    }
+
+    .p-8 {
+      padding: 2rem;
+    }
+
+    /* Responsive overrides */
+    @media (min-width: 768px) {
+      .md-text-hero {
+        font-size: 72px;
+      }
+
+      .md-text-section {
+        font-size: 40px;
+      }
+
+      .md-p-12 {
+        padding: 3rem;
+      }
+
+      .md-py-30 {
+        padding-top: 7.5rem;
+        padding-bottom: 7.5rem;
+      }
+
+      .md-py-38 {
+        padding-top: 9.5rem;
+        padding-bottom: 9.5rem;
+      }
+
+      .md-py-42 {
+        padding-top: 10.5rem;
+        padding-bottom: 10.5rem;
+      }
+    }
+
+    /* Components */
+
+    /* Separators */
+    .separator {
+      width: 5rem;
+      /* w-20 */
+      height: 1px;
+      background-color: var(--c-border);
+    }
+
+    .separator-long {
+      width: 4rem;
+      /* w-16 */
+      height: 1px;
+      background-color: var(--c-border);
+    }
+
+    .separator-full {
+      width: 100%;
+      height: 1px;
+      background-color: var(--c-border);
+    }
+
+    /* Hero */
+    .min-h-screen {
+      min-height: 100vh;
+    }
+
+    .relative {
+      position: relative;
+    }
+
+    /* Link Button style (CTA) */
+    .cta-link {
+      color: var(--c-text-tertiary);
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cta-link:hover {
+      color: var(--c-text-secondary);
+    }
+
+    /* Code Block */
+    .code-block {
+      background-color: var(--c-code-block);
+      border: 1px solid var(--c-border);
+      border-radius: 0.375rem;
+      padding: 1.25rem;
+      overflow-x: auto;
+    }
+
+    @media (min-width: 768px) {
+      .code-block {
+        padding: 1.5rem;
+      }
+    }
+
+    .code-content {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    /* Capabilities Grid */
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      border: 1px solid var(--c-border);
+    }
+
+    @media (min-width: 768px) {
+      .capabilities-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .cap-item {
+      padding: 2rem;
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    @media (min-width: 768px) {
+      .cap-item {
+        padding: 3rem;
+      }
+
+      /* Right border for odd items in desktop */
+      .cap-item:nth-child(odd) {
+        border-right: 1px solid var(--c-border);
+      }
+
+      /* Remove bottom border for last row (last 2 items) */
+      .cap-item:nth-last-child(-n+2) {
+        border-bottom: none;
+      }
+    }
+
+    @media (max-width: 767px) {
+
+      /* Remove bottom border for very last item in mobile */
+      .cap-item:last-child {
+        border-bottom: none;
+      }
+    }
+
+    /* Footer Links */
+    .footer-nav a {
+      color: var(--c-text-tertiary);
+      font-size: 13px;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+    }
+
+    .footer-nav a:hover {
+      color: var(--c-text-secondary);
+    }
+
+    /* Animation Utilities */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 500ms cubic-bezier(0.25, 0.1, 0.25, 1.0),
+        transform 500ms cubic-bezier(0.25, 0.1, 0.25, 1.0);
+    }
+
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Keyframes */
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes shimmer {
+
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* Hero Elements Animation */
+    .hero-logo {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 600ms ease-out 100ms forwards;
+    }
+
+    .hero-title-el {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 600ms ease-out 300ms forwards;
+    }
+
+    .hero-tagline-el {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 600ms ease-out 500ms forwards;
+    }
+
+    .hero-cta-el {
+      opacity: 0;
+      animation: fadeIn 600ms ease-out 700ms forwards;
+    }
+
+    .comet-shimmer {
+      animation: shimmer 4s ease-in-out infinite;
+    }
+
+    .cta-arrow {
+      transition: transform 200ms ease-out;
+    }
+
+    .cta-link:hover .cta-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Scrollbar */
+    .code-block::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .code-block::-webkit-scrollbar-track {
+      background: var(--c-code-block);
+    }
+
+    .code-block::-webkit-scrollbar-thumb {
+      background: var(--c-border);
+      border-radius: 3px;
+    }
+
+    /* Selection */
+    ::selection {
+      background: rgba(246, 166, 35, 0.2);
+      color: var(--c-text-primary);
+    }
+
+    /* Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.75rem 1.5rem;
+      background: var(--c-amber);
+      color: var(--c-bg);
+      font-weight: 500;
+      z-index: 100;
+      transition: top 200ms ease;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    /* Misc spacing helpers for specific layout needs */
+    .space-y-5>*+* {
+      margin-top: 1.25rem;
+    }
+
+    .space-y-8>*+* {
+      margin-top: 2rem;
+    }
+
+    .gap-x-8 {
+      column-gap: 2rem;
+    }
+
+    .gap-y-4 {
+      row-gap: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Skip to content link for accessibility -->
+  <a href="#research-notes" class="skip-link">Skip to content</a>
+
+  <!-- ============================================== -->
+  <!-- SECTION 1: HERO -->
+  <!-- ============================================== -->
+  <section class="min-h-screen flex flex-col items-center justify-center px-6 py-12 relative"
+    aria-labelledby="hero-heading">
+
+    <!-- Logo -->
+    <div class="hero-logo mb-8" aria-hidden="true">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img"
+        aria-label="TAI Logo">
+        <defs>
+          <linearGradient id="cometGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F6A623" stop-opacity="0.2" />
+            <stop offset="100%" stop-color="#F6A623" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <!-- Comet tail glow -->
+        <path d="M8 40 Q 20 28 24 24" stroke="url(#cometGlow)" stroke-width="8" stroke-linecap="round"
+          class="comet-shimmer" />
+        <!-- Comet tail line -->
+        <path d="M12 36 Q 20 28 24 24" stroke="#F6A623" stroke-width="2" stroke-linecap="round" stroke-opacity="0.4" />
+        <!-- Comet head glow -->
+        <circle cx="28" cy="20" r="12" fill="#F6A623" fill-opacity="0.15" />
+        <!-- Comet head -->
+        <circle cx="28" cy="20" r="8" fill="#F6A623" />
+      </svg>
+    </div>
+
+    <!-- Model Name -->
+    <h1 id="hero-heading" class="hero-title-el type-hero-mobile md-text-hero text-center">
+      TAI One
+    </h1>
+
+    <!-- Tagline -->
+    <p class="hero-tagline-el text-secondary type-body font-normal mt-6 text-center"
+      style="font-size: 1.25rem; max-width: 28rem;">
+      A calm model for fast, reliable reasoning.
+    </p>
+
+    <!-- CTA -->
+    <a href="#research-notes" class="hero-cta-el cta-link mt-12">
+      Read the research notes
+      <span class="cta-arrow" aria-hidden="true">→</span>
+    </a>
+
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 2: WHAT IS TAI ONE? -->
+  <!-- ============================================== -->
+  <section id="research-notes" class="fade-section py-34 md-py-42 px-6" aria-labelledby="what-heading">
+    <div class="container max-w-section">
+
+      <!-- Section Title -->
+      <h2 id="what-heading" class="type-section-mobile md-text-section text-primary mb-6">
+        What is TAI One?
+      </h2>
+
+      <!-- Horizontal Rule -->
+      <div class="separator mb-10"></div>
+
+      <!-- Content -->
+      <div class="max-w-prose">
+        <p class="type-body text-secondary mb-7">
+          TAI One is a private language model built by TLabs. It is not a router. It is not an ensemble. It is a
+          single, hand-tuned architecture designed for clarity and consistency.
+        </p>
+
+        <p class="type-body text-secondary">
+          Where other systems optimize for benchmarks, TAI One optimizes for usability — fast responses, predictable
+          behavior, and transparent reasoning paths.
+        </p>
+
+        <p class="type-body text-secondary mt-7">
+          TAI One is not derived from an existing foundation model.
+          Its tokenizer, inference engine, execution scheduler, and runtime
+          are built from first principles, with custom Metal-based kernels
+          and a fully independent text pipeline.
+        </p>
+
+        <p class="type-label uppercase text-tertiary tracking-widest mt-10 mb-2">
+          Architecture note
+        </p>
+
+        <p class="type-small text-secondary">
+          No pretrained weights, no external runtimes, no third-party inference stacks.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 2.5: RESEARCH STATUS -->
+  <!-- ============================================== -->
+  <section class="fade-section py-24 md-py-30 px-6" aria-labelledby="status-heading">
+    <div class="container max-w-section">
+
+      <!-- Section Title -->
+      <h2 id="status-heading" class="type-section-mobile md-text-section text-primary mb-6">
+        Research Status
+      </h2>
+
+      <!-- Horizontal Rule -->
+      <div class="separator mb-10"></div>
+
+      <!-- Content -->
+      <div class="max-w-prose">
+        <p class="type-body text-secondary mb-7">
+          TAI One is currently under active development inside a private research environment.
+        </p>
+
+        <p class="type-body text-secondary mb-7">
+          Our focus is on inference stability, predictable behavior, and transparent reasoning. We are exploring methods
+          for deterministic output generation and traceable decision paths.
+        </p>
+
+        <p class="type-body text-secondary mb-7">
+          Public access is not available yet.
+        </p>
+
+        <p class="type-body text-tertiary italic">
+          This page exists only to document the design principles and early architecture work.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 3: SYSTEM CHARACTERISTICS -->
+  <!-- ============================================== -->
+  <section class="fade-section py-30 px-6" aria-labelledby="capabilities-heading">
+    <div class="container max-w-section">
+
+      <h2 id="capabilities-heading" class="sr-only">System Characteristics</h2>
+
+      <div class="capabilities-grid" role="list">
+
+        <!-- Reasoning -->
+        <div class="cap-item" role="listitem">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-amber type-label" aria-hidden="true" style="font-size: 10px;">◆</span>
+            <span class="type-subhead font-medium text-primary" style="font-size: 1.125rem;">Reasoning</span>
+          </div>
+          <p class="type-small text-secondary" style="line-height: 1.6;">
+            Multi-step logic with transparent chains
+          </p>
+        </div>
+
+        <!-- Execution Output -->
+        <div class="cap-item" role="listitem">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-amber type-label" aria-hidden="true" style="font-size: 10px;">◆</span>
+            <span class="type-subhead font-medium text-primary" style="font-size: 1.125rem;">Execution Output</span>
+          </div>
+          <p class="type-small text-secondary" style="line-height: 1.6;">
+            Precise, executable output across 40+ languages
+          </p>
+        </div>
+
+        <!-- Inference Orchestration -->
+        <div class="cap-item" role="listitem">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-amber type-label" aria-hidden="true" style="font-size: 10px;">◆</span>
+            <span class="type-subhead font-medium text-primary" style="font-size: 1.125rem;">Inference
+              Orchestration</span>
+          </div>
+          <p class="type-small text-secondary" style="line-height: 1.6;">
+            Structured task decomposition and tool orchestration
+          </p>
+        </div>
+
+        <!-- Text Semantics -->
+        <div class="cap-item" role="listitem">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-amber type-label" aria-hidden="true" style="font-size: 10px;">◆</span>
+            <span class="type-subhead font-medium text-primary" style="font-size: 1.125rem;">Text Semantics</span>
+          </div>
+          <p class="type-small text-secondary" style="line-height: 1.6;">
+            Nuanced comprehension and generation
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 4: WHY TAI ONE -->
+  <!-- ============================================== -->
+  <section class="fade-section py-34 md-py-38 px-6 text-center" aria-labelledby="why-heading">
+
+    <!-- Section Title -->
+    <h2 id="why-heading" class="type-section-mobile md-text-section text-primary mb-6">
+      Why TAI One
+    </h2>
+
+    <!-- Horizontal Rule -->
+    <div class="separator-long mx-auto mb-12"></div>
+
+    <!-- Principles List -->
+    <ul class="space-y-5">
+      <li class="type-body text-primary" style="font-size: 1.125rem;">Hand-tuned inference behavior</li>
+      <li class="type-body text-primary" style="font-size: 1.125rem;">Deterministic output modes</li>
+      <li class="type-body text-primary" style="font-size: 1.125rem;">Transparent design decisions</li>
+      <li class="type-body text-primary" style="font-size: 1.125rem;">Human-level latency targets</li>
+      <li class="type-body text-primary" style="font-size: 1.125rem;">Small models that feel big</li>
+    </ul>
+
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 5: INTERNAL VARIANTS -->
+  <!-- ============================================== -->
+  <section class="fade-section py-30 px-6" aria-labelledby="variants-heading">
+    <div class="container max-w-section">
+
+      <!-- Label -->
+      <p class="type-label uppercase text-tertiary tracking-widest mb-6">
+        Internal use only — not available externally
+      </p>
+
+      <!-- Section Title -->
+      <h2 id="variants-heading" class="type-section-mobile md-text-section text-primary mb-6">
+        Internal Variants
+      </h2>
+
+      <!-- Horizontal Rule -->
+      <div class="separator mb-12"></div>
+
+      <!-- Variants List -->
+      <div class="max-w-prose space-y-8">
+
+        <div>
+          <h3 class="type-body font-medium font-mono text-primary mb-2" style="font-size: 1.125rem;">TAI-mini</h3>
+          <p class="type-body text-secondary">
+            Early lightweight experiments. Testing inference speed boundaries with minimal parameter counts.
+          </p>
+        </div>
+
+        <div class="separator-full"></div>
+
+        <div>
+          <h3 class="type-body font-medium font-mono text-primary mb-2" style="font-size: 1.125rem;">TAI-lite</h3>
+          <p class="type-body text-secondary">
+            Stability-focused baseline. Our primary testbed for deterministic behavior and output consistency.
+          </p>
+        </div>
+
+        <div class="separator-full"></div>
+
+        <div>
+          <h3 class="type-body font-medium font-mono text-primary mb-2" style="font-size: 1.125rem;">TAI-pro</h3>
+          <p class="type-body text-secondary">
+            Extended reasoning depth. Exploring multi-step inference chains with transparent intermediate states.
+          </p>
+        </div>
+
+        <div class="separator-full"></div>
+
+        <div>
+          <h3 class="type-body font-medium font-mono text-primary mb-2" style="font-size: 1.125rem;">TAI-max</h3>
+          <p class="type-body text-secondary">
+            Exploratory large-path model. Research into scaling behavior and emergent reasoning capabilities.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 6: API ACCESS -->
+  <!-- ============================================== -->
+  <section class="fade-section py-24 md-py-30 px-6" aria-labelledby="api-heading">
+    <div class="container max-w-content">
+
+      <!-- Label -->
+      <p class="type-label uppercase text-tertiary tracking-widest mb-4">
+        Internal reference
+      </p>
+
+      <!-- Section Title -->
+      <h3 id="api-heading" class="type-subhead text-primary mb-4">
+        API Structure
+      </h3>
+
+      <!-- Horizontal Rule -->
+      <div class="separator mb-8" style="width: 3rem;"></div>
+
+      <!-- Code Block -->
+      <div class="code-block">
+        <pre class="code-content"><code><span class="text-tertiary">curl</span> <span class="text-amber">https://api.t-ai.one/v1/chat</span> <span class="text-tertiary">\</span>
+  <span class="text-tertiary">-H</span> <span class="text-secondary">"Authorization: Bearer $TAI_KEY"</span> <span class="text-tertiary">\</span>
+  <span class="text-tertiary">-d</span> <span class="text-secondary">'{
+    "model": "tai-pro",
+    "messages": [
+      { "role": "user", "content": "Explain quantum entanglement." }
+    ]
+  }'</span></code></pre>
+        <p class="type-caption text-tertiary mt-4 italic">
+          The API interface mirrors familiar formats for developer ergonomics.
+          The underlying execution stack is fully independent.
+        </p>
+
+        <p class="type-caption text-tertiary mt-4 italic">
+          This endpoint is not publicly accessible.
+        </p>
+
+      </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 7: PHILOSOPHY -->
+  <!-- ============================================== -->
+  <section class="fade-section py-34 md-py-42 px-6" aria-labelledby="philosophy-heading">
+    <div class="container max-w-content text-center">
+
+      <!-- Section Title -->
+      <h2 id="philosophy-heading" class="type-subhead font-medium text-primary mb-6" style="font-size: 2rem;">
+        Engineering over spectacle.
+      </h2>
+
+      <!-- Horizontal Rule -->
+      <div class="separator-long mx-auto mb-12"></div>
+
+      <!-- Opening Statement -->
+      <p class="type-body text-secondary mb-8 max-w-prose mx-auto">
+        TAI One exists because we believe language models should feel like tools, not magic tricks.
+      </p>
+
+      <!-- Principles -->
+      <div class="text-left mx-auto mb-12" style="max-width: 26rem;">
+        <p class="type-body text-secondary italic" style="line-height: 2.2;">
+          Clean architectures that engineers can reason about.<br>
+          Deterministic behavior where it matters.<br>
+          Stable interfaces that don't break between versions.<br>
+          Transparent reasoning you can trace and trust.<br>
+          Long-lived design over short-lived trends.
+        </p>
+      </div>
+
+      <!-- Closing Statement -->
+      <p class="type-body text-secondary mb-8 max-w-prose mx-auto">
+        This is not the loudest model. It is not the largest. It is the one we would use ourselves — and do, every day.
+      </p>
+
+      <!-- Signature -->
+      <p class="type-small text-tertiary text-right mx-auto" style="max-width: 26rem;">
+        — TLabs
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 8: FOOTER -->
+  <!-- ============================================== -->
+  <footer class="py-12 px-6" style="border-top: 1px solid var(--c-border);">
+
+    <!-- Navigation Links -->
+    <nav class="footer-nav flex justify-center flex-wrap gap-x-8 gap-y-4 mb-6" aria-label="Footer navigation">
+      <a href="#">TAI One</a>
+      <a href="#research-notes">Research Notes</a>
+      <a href="#status-heading">Status</a>
+      <a href="#">Privacy</a>
+      <a href="#">GitHub</a>
+      <a href="#">X</a>
+    </nav>
+
+    <!-- Copyright -->
+    <p class="type-copyright text-quaternary text-center">
+      © 2025 TLabs Technology
+    </p>
+
+  </footer>
+
+  <!-- ============================================== -->
+  <!-- JAVASCRIPT -->
+  <!-- ============================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ========================================
+      // Intersection Observer for fade-in sections
+      // ========================================
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -15% 0px',
+        threshold: 0.1
+      };
+
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe all fade sections
+      document.querySelectorAll('.fade-section').forEach((section) => {
+        fadeObserver.observe(section);
+      });
+
+      // ========================================
+      // Smooth scroll for anchor links
+      // ========================================
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+
+          e.preventDefault();
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+
+            // Update URL without jumping
+            history.pushState(null, '', targetId);
+          }
+        });
+      });
+
+      // ========================================
+      // Reduced motion support
+      // ========================================
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function handleReducedMotion() {
+        if (prefersReducedMotion.matches) {
+          // Disable animations for users who prefer reduced motion
+          document.querySelectorAll('.fade-section').forEach((section) => {
+            section.classList.add('visible');
+            section.style.transition = 'none';
+          });
+
+          document.querySelectorAll('.hero-logo, .hero-title-el, .hero-tagline-el, .hero-cta-el').forEach((el) => {
+            el.style.animation = 'none';
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          });
+
+          document.querySelectorAll('.comet-shimmer').forEach((el) => {
+            el.style.animation = 'none';
+          });
+        }
+      }
+
+      handleReducedMotion();
+      prefersReducedMotion.addEventListener('change', handleReducedMotion);
+
+    })();
+  </script>
+
+</body>
+
+</html>
