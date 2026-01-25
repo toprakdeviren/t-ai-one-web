@@ -76,28 +76,42 @@
       <!-- Content -->
       <div class="max-w-prose">
         <p class="type-body text-secondary mb-7">
-          TAI One is a private language model built by TLabs. It is not a router. It is not an ensemble. It is a
-          single, hand-tuned architecture designed for clarity and consistency.
+          TAI One is a single language model designed for clarity, consistency, and calm behavior.
+        </p>
+
+        <p class="type-body text-secondary mb-7">
+          It is not a router. It is not an ensemble. It does not expose variants or modes to the user.
         </p>
 
         <p class="type-body text-secondary">
-          Where other systems optimize for benchmarks, TAI One optimizes for usability — fast responses, predictable
-          behavior, and transparent reasoning paths.
+          TAI One presents one stable interface and one predictable behavior — regardless of internal execution paths.
+          Where most systems optimize for benchmarks or marketing categories, TAI One optimizes for usability:
+          fast responses, stable outputs, and behavior you can reason about.
         </p>
 
         <p class="type-body text-secondary mt-7">
-          TAI One is not derived from an existing foundation model.
-          Its tokenizer, inference engine, execution scheduler, and runtime
-          are built from first principles, with custom Metal-based kernels
-          and a fully independent text pipeline.
+          TAI One behaves like a tool — not a guessing game.
         </p>
 
         <p class="type-label uppercase text-tertiary tracking-widest mt-10 mb-2">
           Architecture note
         </p>
 
-        <p class="type-small text-secondary">
-          No pretrained weights, no external runtimes, no third-party inference stacks.
+        <p class="type-small text-secondary mb-4">
+          TAI One is built from first principles.
+        </p>
+
+        <ul class="type-small text-secondary list-disc pl-4 space-y-2">
+          <li>Independent tokenizer and text pipeline</li>
+          <li>Custom inference runtime (Metal/WebGPU)</li>
+          <li>No third-party inference stacks</li>
+          <li>No opaque orchestration layers</li>
+        </ul>
+
+        <p class="type-small text-secondary mt-6">
+          Internal execution paths are optimized for latency, stability, or reasoning depth — but these details are
+          never exposed externally.
+          From the outside, there is only TAI One.
         </p>
       </div>
 
@@ -121,25 +135,26 @@
       <!-- Content -->
       <div class="max-w-prose">
         <p class="type-body text-secondary mb-7">
-          TAI One is currently under active development inside a private research environment.
+          TAI One is under active development in a private research environment.
         </p>
 
         <p class="type-body text-secondary mb-7">
-          Our focus is on inference stability, predictable behavior, and transparent reasoning. We are exploring methods
-          for deterministic output generation and traceable decision paths.
+          Current focus areas:
         </p>
 
+        <ul class="type-body text-secondary list-disc pl-4 space-y-2 mb-7">
+          <li>inference stability</li>
+          <li>deterministic output modes</li>
+          <li>traceable reasoning paths</li>
+        </ul>
+
         <p class="type-body text-secondary mb-7">
-          Public access is not available yet.
+          Public access is not available yet. External exposure will only be considered once the system’s behavior is
+          <em>boringly reliable</em>.
         </p>
 
         <p class="type-body text-tertiary italic">
-          This page exists only to document the design principles and early architecture work.
-        </p>
-
-        <p class="type-small text-tertiary mt-10 italic">
-          Not: Bu sayfa bir ürün duyurusu değildir. TAI One, TLabs bünyesinde yürütülen özel bir araştırma
-          çalışmasının mimari notlarını belgelemek amacıyla yayınlanmıştır.
+          This page documents design principles and architectural direction — not a public product launch.
         </p>
       </div>
 
@@ -163,7 +178,7 @@
             <span class="type-subhead font-medium text-primary" style="font-size: 1.125rem;">Reasoning</span>
           </div>
           <p class="type-small text-secondary" style="line-height: 1.6;">
-            Multi-step logic with transparent chains
+            Multi-step logic with traceable internal structure
           </p>
         </div>
 
@@ -174,7 +189,7 @@
             <span class="type-subhead font-medium text-primary" style="font-size: 1.125rem;">Execution Output</span>
           </div>
           <p class="type-small text-secondary" style="line-height: 1.6;">
-            Precise, executable output across 40+ languages
+            Precise, executable responses across multiple languages
           </p>
         </div>
 
@@ -186,7 +201,7 @@
               Orchestration</span>
           </div>
           <p class="type-small text-secondary" style="line-height: 1.6;">
-            Structured task decomposition and tool orchestration
+            Structured task decomposition with predictable behavior
           </p>
         </div>
 
@@ -197,7 +212,7 @@
             <span class="type-subhead font-medium text-primary" style="font-size: 1.125rem;">Text Semantics</span>
           </div>
           <p class="type-small text-secondary" style="line-height: 1.6;">
-            Nuanced comprehension and generation
+            Careful handling of meaning, intent, and instruction boundaries
           </p>
         </div>
 
@@ -221,19 +236,26 @@
 
     <!-- Principles List -->
     <ul class="space-y-5">
+      <li class="type-body text-primary" style="font-size: 1.125rem;">One model, one contract</li>
       <li class="type-body text-primary" style="font-size: 1.125rem;">Hand-tuned inference behavior</li>
-      <li class="type-body text-primary" style="font-size: 1.125rem;">Deterministic output modes</li>
-      <li class="type-body text-primary" style="font-size: 1.125rem;">Transparent design decisions</li>
+      <li class="type-body text-primary" style="font-size: 1.125rem;">Deterministic execution modes where correctness
+        matters more than creativity</li>
       <li class="type-body text-primary" style="font-size: 1.125rem;">Human-level latency targets</li>
-      <li class="type-body text-primary" style="font-size: 1.125rem;">Small models that feel big</li>
+      <li class="type-body text-primary" style="font-size: 1.125rem;">Small internal models that feel large through
+        discipline</li>
+      <li class="type-body text-primary" style="font-size: 1.125rem;">Stable interfaces designed to live for years</li>
     </ul>
+
+    <p class="type-body text-secondary mt-12 italic">
+      TAI One is built for engineers who value calm systems over clever tricks.
+    </p>
 
   </section>
 
   <!-- ============================================== -->
-  <!-- SECTION 5: INTERNAL VARIANTS -->
+  <!-- SECTION 5: INTERNAL ARCHITECTURE -->
   <!-- ============================================== -->
-  <section class="fade-section py-30 px-6" aria-labelledby="variants-heading">
+  <section class="fade-section py-30 px-6" aria-labelledby="interals-heading">
     <div class="container max-w-section">
 
       <!-- Label -->
@@ -242,50 +264,26 @@
       </p>
 
       <!-- Section Title -->
-      <h2 id="variants-heading" class="type-section-mobile md-text-section text-primary mb-6">
-        Internal Variants
+      <h2 id="interals-heading" class="type-section-mobile md-text-section text-primary mb-6">
+        Internal Architecture
       </h2>
 
       <!-- Horizontal Rule -->
       <div class="separator mb-12"></div>
 
-      <!-- Variants List -->
-      <div class="max-w-prose space-y-8">
+      <div class="max-w-prose">
+        <p class="type-body text-secondary mb-7">
+          Internally, TAI One uses multiple execution paths to explore performance, stability, and reasoning depth (e.g.
+          <code>mini</code>, <code>lite</code>, <code>pro</code>, <code>max</code>).
+        </p>
 
-        <div>
-          <h3 class="type-body font-medium font-mono text-primary mb-2" style="font-size: 1.125rem;">TAI-mini</h3>
-          <p class="type-body text-secondary">
-            Early lightweight experiments. Testing inference speed boundaries with minimal parameter counts.
-          </p>
-        </div>
+        <p class="type-body text-secondary mb-7">
+          These paths are implementation details, not product variants.
+        </p>
 
-        <div class="separator-full"></div>
-
-        <div>
-          <h3 class="type-body font-medium font-mono text-primary mb-2" style="font-size: 1.125rem;">TAI-lite</h3>
-          <p class="type-body text-secondary">
-            Stability-focused baseline. Our primary testbed for deterministic behavior and output consistency.
-          </p>
-        </div>
-
-        <div class="separator-full"></div>
-
-        <div>
-          <h3 class="type-body font-medium font-mono text-primary mb-2" style="font-size: 1.125rem;">TAI-pro</h3>
-          <p class="type-body text-secondary">
-            Extended reasoning depth. Exploring multi-step inference chains with transparent intermediate states.
-          </p>
-        </div>
-
-        <div class="separator-full"></div>
-
-        <div>
-          <h3 class="type-body font-medium font-mono text-primary mb-2" style="font-size: 1.125rem;">TAI-max</h3>
-          <p class="type-body text-secondary">
-            Exploratory large-path model. Research into scaling behavior and emergent reasoning capabilities.
-          </p>
-        </div>
-
+        <p class="type-body text-secondary">
+          They are never selected directly by users. The system decides — so users don’t have to.
+        </p>
       </div>
 
     </div>
@@ -310,24 +308,27 @@
       <!-- Horizontal Rule -->
       <div class="separator mb-8" style="width: 3rem;"></div>
 
+      <p class="type-body text-secondary mb-6">
+        Internally, different execution paths may be used — but the interface and outcome remain stable.
+      </p>
+
       <!-- Code Block -->
       <div class="code-block">
         <pre class="code-content"><code><span class="text-tertiary">curl</span> <span class="text-amber">https://api.t-ai.one/v1/chat</span> <span class="text-tertiary">\</span>
   <span class="text-tertiary">-H</span> <span class="text-secondary">"Authorization: Bearer $TAI_KEY"</span> <span class="text-tertiary">\</span>
   <span class="text-tertiary">-d</span> <span class="text-secondary">'{
-    "model": "tai-pro",
+    "model": "t-ai.one",
     "messages": [
       { "role": "user", "content": "Explain quantum entanglement." }
     ]
   }'</span></code></pre>
         <p class="type-caption text-tertiary mt-4 italic">
-          The API interface mirrors familiar formats for developer ergonomics.
-          The underlying execution stack is fully independent.
+          The interface mirrors familiar formats for developer ergonomics.
+          The execution stack behind it is fully independent.
         </p>
 
         <p class="type-caption text-tertiary mt-4 italic">
           This endpoint is not publicly accessible.
-          Shown for interface illustration only.
         </p>
 
       </div>
@@ -355,9 +356,9 @@
       <!-- Principles -->
       <div class="text-left mx-auto mb-12" style="max-width: 26rem;">
         <p class="type-body text-secondary italic" style="line-height: 2.2;">
-          Clean architectures that engineers can reason about.<br>
-          Deterministic behavior where it matters.<br>
-          Stable interfaces that don't break between versions.<br>
+          Calm systems that don’t surprise you.<br>
+          Designs you can explain to another engineer.<br>
+          Interfaces that don’t change their personality every release.<br>
           Transparent reasoning you can trace and trust.<br>
           Long-lived design over short-lived trends.
         </p>
@@ -365,7 +366,8 @@
 
       <!-- Closing Statement -->
       <p class="type-body text-secondary mb-8 max-w-prose mx-auto">
-        This is not the loudest model. It is not the largest. It is the one we would use ourselves — and do, every day.
+        This is not the loudest model. It is not the largest. It is the one we trust enough to use ourselves — every
+        day.
       </p>
 
       <!-- Signature -->
@@ -388,12 +390,12 @@
       <a href="#status-heading">Status</a>
       <a href="#">Privacy</a>
       <a href="https://github.com/toprakdeviren" target="_blank" rel="noopener">GitHub</a>
-      <a href="#">X</a>
+      <a href="https://twitter.com/toprakdeviren" target="_blank" rel="noopener">X</a>
     </nav>
 
     <!-- Copyright -->
     <p class="type-copyright text-quaternary text-center">
-      © 2025 TLabs Technology
+      © 2026 TLabs Technology
     </p>
 
   </footer>
